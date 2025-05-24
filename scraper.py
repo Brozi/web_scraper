@@ -1,5 +1,6 @@
 import requests as r
 from bs4 import BeautifulSoup
+import csv
 URL = "https://store.steampowered.com/app/1326470/Sons_Of_The_Forest/"
 user_agent = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
