@@ -24,7 +24,7 @@ if price_tag is not None:
 else:
     print("Warning: Element not found")
 
-release_tag = soup.find('div', class_="game_purchase_price price")
+release_tag = soup.find('div', class_="date")
 price = "N/A"
 if price_tag is not None:
     price = price_tag.get_text(strip=True)
