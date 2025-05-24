@@ -8,8 +8,8 @@ while True:
                   "musi pochodzić ze sklepu Steam, oraz musi zaczynać się od 'https://'\n")
         else:
             break
-#print(f"Próbuję ściągnąć dane z {url}")
-#url = "https://store.steampowered.com/app/1326470/Sons_Of_The_Forest/"
+
+print(f"Próbuję ściągnąć dane z {url}")
 user_agent = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                   "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -23,12 +23,12 @@ game_info = {
     "Reviews" : "",
 }
 
-def none_check(element_tag):
+def none_check(element_tag, tag_name):
     element = "N/A"
     if element_tag is not None:
         element = element_tag.get_text(strip=True)
     else:
-        print(f"Warning: Element {element_tag} not found")
+        print(f"Warning: Element {tag_name} not found")
     return element
 
 response = r.get(url, headers=user_agent, timeout = 10)
@@ -44,11 +44,14 @@ reviews_tag = soup.find('span', class_="game_review_summary")
 developers_tag = soup.find('div', id="developers_list")
 
 element_tags = [title_tag, price_tag, release_tag, reviews_tag, developers_tag]
-game = []
+keys = list(game_info.keys())
 
-for entry in element_tags:
-    game.append(none_check(entry))
-print(game)
+for i in range(len(keys)):
+    key = keys[i]
+    element_tag = element_tags[i]
+    game_info[keys[i]] = none_check(element_tag,key)
+
+print(game_info)
 
 
 
