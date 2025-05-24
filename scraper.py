@@ -25,20 +25,27 @@ else:
     print("Warning: Element not found")
 
 release_tag = soup.find('div', class_="date")
-price = "N/A"
-if price_tag is not None:
-    price = price_tag.get_text(strip=True)
-else:
-    print("Warning: Element not found")
-price_tag = soup.find('div', class_="game_purchase_price price")
-price = "N/A
-if price_tag is not None:
-    price = price_tag.get_text(strip=True)
+release = "N/A"
+if release_tag is not None:
+    release = release_tag.get_text(strip=True)
 else:
     print("Warning: Element not found")
 
+reviews_tag = soup.find('span', class_="game_review_summary")
+reviews = "N/A"
+if reviews_tag is not None:
+    reviews = reviews_tag.get_text(strip=True)
+else:
+    print("Warning: Element not found")
 
+game_info = {
+    "Title" : title,
+    "Price" : price,
+    "Release date" : release,
+    "Reviews" : reviews,
+}
 
+print(game_info)
 
 
 
