@@ -16,11 +16,12 @@ user_agent = {
                   "Chrome/136.0.0.0 Safari/537.36"
 }
 
-game_info = {
-    "Title" : "",
-    "Price" : "",
-    "Release date" : "",
-    "Reviews" : "",
+output = {
+    "Title" : "N/A",
+    "Price" : "N/A",
+    "Release date" : "N/A",
+    "Reviews" : "N/A",
+    "Developer": "N/A",
 }
 
 def none_check(element_tag, tag_name):
@@ -44,14 +45,32 @@ reviews_tag = soup.find('span', class_="game_review_summary")
 developers_tag = soup.find('div', id="developers_list")
 
 element_tags = [title_tag, price_tag, release_tag, reviews_tag, developers_tag]
-keys = list(game_info.keys())
+keys = list(output.keys())
 
 for i in range(len(keys)):
     key = keys[i]
     element_tag = element_tags[i]
-    game_info[keys[i]] = none_check(element_tag,key)
+    output[keys[i]] = none_check(element_tag,key)
 
-print(game_info)
+csvfile_name = "output.csv"
+try:
+    with open(csvfile_name, mode="w",newline='',encoding='utf-8') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=keys)
+
+        writer.writeheader()
+        writer.writerow(output)
+        print(f"Zapisano wynik do pliku {csvfile_name}")
+
+except IOError:
+    print(f"Błąd! Nie udało się zapisać do pliku {csvfile_name}")
+except Exception as e:
+    print(f"Nieoczekiwany błąd podczas zapisywania: {e}")
+
+
+
+
+
+print(output)
 
 
 
