@@ -1,0 +1,11 @@
+Price: <div class="game_purchase_price price" data-price-final="13899">
+							138,99zł						</div>
+
+
+Title: <div id="appHubAppName" class="apphub_AppName">Sons Of The Forest</div>
+
+Release date; <div class="date">22 lutego 2024</div>
+
+reviews: <div class="summary column">
+<span class="game_review_summary positive">Bardzo pozytywne</span>
+</div>
