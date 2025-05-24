@@ -9,7 +9,7 @@ while True:
         else:
             break
 
-print(f"Próbuję ściągnąć dane z {url}")
+print(f"Próbuję ściągnąć dane z {url}...\n")
 user_agent = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                   "AppleWebKit/537.36 (KHTML, like Gecko) "
@@ -24,10 +24,10 @@ output = {
     "Developer": "N/A",
 }
 
-def none_check(element_tag, tag_name):
+def none_check(tag, tag_name):
     element = "N/A"
-    if element_tag is not None:
-        element = element_tag.get_text(strip=True)
+    if tag is not None:
+        element = tag.get_text(strip=True)
     else:
         print(f"Warning: Element {tag_name} not found")
     return element
@@ -54,12 +54,14 @@ for i in range(len(keys)):
 
 csvfile_name = "output.csv"
 try:
-    with open(csvfile_name, mode="w",newline='',encoding='utf-8') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=keys)
+    with open(csvfile_name, mode="w",newline='',encoding='utf-8-sig') as csvfile:
+        writer = csv.DictWriter(csvfile, fieldnames=keys, delimiter=';')
 
         writer.writeheader()
         writer.writerow(output)
-        print(f"Zapisano wynik do pliku {csvfile_name}")
+        print(f"Zapisano wynik do pliku {csvfile_name}\n")
+        for key in output.keys():
+            print(key + ": " + output[key])
 
 except IOError:
     print(f"Błąd! Nie udało się zapisać do pliku {csvfile_name}")
@@ -67,10 +69,6 @@ except Exception as e:
     print(f"Nieoczekiwany błąd podczas zapisywania: {e}")
 
 
-
-
-
-print(output)
 
 
 
