@@ -1,6 +1,7 @@
 import requests as r
 from bs4 import BeautifulSoup
-import csv
+import csv, os
+#steam search query for future development https://store.steampowered.com/search/?term=YOUR+GAME+TITLE&page=1
 while True:
         url = input("Wpisz URL produktu w sklepie Steam, którego dane chcesz ściągnać: ").strip()
         if (url == "") or ("https://" not in url) or ("store.steampowered.com/app" not in url):
@@ -39,7 +40,7 @@ html_content = response.text
 soup = BeautifulSoup(html_content, 'lxml')
 
 title_tag = soup.find('div', id='appHubAppName')
-price_tag = soup.find('div', class_="game_purchase_price price")
+price_tag = soup.select_one('div[class*=final_price]')
 release_tag = soup.find('div', class_="date")
 reviews_tag = soup.find('span', class_="game_review_summary")
 developers_tag = soup.find('div', id="developers_list")
@@ -52,7 +53,11 @@ for i in range(len(keys)):
     element_tag = element_tags[i]
     output[keys[i]] = none_check(element_tag,key)
 
-csvfile_name = "output.csv"
+counter = 1
+csvfile_name = f"output_{counter}.csv"
+while os.path.exists(csvfile_name):
+    counter +=1
+    csvfile_name = f"output_{counter}.csv"
 try:
     with open(csvfile_name, mode="w",newline='',encoding='utf-8-sig') as csvfile:
         writer = csv.DictWriter(csvfile, fieldnames=keys, delimiter=';')
@@ -67,10 +72,3 @@ except IOError:
     print(f"Błąd! Nie udało się zapisać do pliku {csvfile_name}")
 except Exception as e:
     print(f"Nieoczekiwany błąd podczas zapisywania: {e}")
-
-
-
-
-
-
-
