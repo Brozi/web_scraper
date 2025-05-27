@@ -38,9 +38,19 @@ response.raise_for_status()
 
 html_content = response.text
 soup = BeautifulSoup(html_content, 'lxml')
+i = 0
+price_tag = None
+while price_tag is None:
 
+    price_parent_tag = soup.find_all('div', class_="game_area_purchase_game")[i]
+    discount_check = price_parent_tag.find('div', class_="discount_prices")
+
+    if discount_check is not None:
+        price_tag = price_parent_tag.find('div', class_="discount_final_price")
+    else:
+        price_tag = price_parent_tag.find('div', class_="game_purchase_price price")
+    i+=1
 title_tag = soup.find('div', id='appHubAppName')
-price_tag = soup.select_one('div[class*=final_price]')
 release_tag = soup.find('div', class_="date")
 reviews_tag = soup.find('span', class_="game_review_summary")
 developers_tag = soup.find('div', id="developers_list")
