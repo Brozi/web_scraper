@@ -18,11 +18,11 @@ user_agent = {
 }
 
 output = {
-    "Title" : "N/A",
-    "Price" : "N/A",
-    "Release date" : "N/A",
-    "Reviews" : "N/A",
-    "Developer": "N/A",
+    "Nazwa" : "N/A",
+    "Cena" : "N/A",
+    "Data wydania" : "N/A",
+    "Recenzje" : "N/A",
+    "Deweloper": "N/A",
 }
 
 def none_check(tag, tag_name):
@@ -54,7 +54,6 @@ title_tag = soup.find('div', id='appHubAppName')
 release_tag = soup.find('div', class_="date")
 reviews_tag = soup.find('span', class_="game_review_summary")
 developers_tag = soup.find('div', id="developers_list")
-
 element_tags = [title_tag, price_tag, release_tag, reviews_tag, developers_tag]
 keys = list(output.keys())
 
